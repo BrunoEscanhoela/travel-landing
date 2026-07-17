@@ -1,0 +1,817 @@
+/* ============================================
+   VARIÁVEIS GLOBAIS (Custom Properties)
+   Centralizam as cores e fontes do tema.
+   Para mudar o visual do site inteiro,
+   basta editar aqui.
+   ============================================ */
+:root {
+  /* Cores de fundo (tema escuro azul-marinho) */
+  --bg-dark: #141d2b;       /* fundo principal */
+  --bg-dark-rgb: 20, 29, 43;  /* mesma cor em RGB, para uso em rgba() */
+  --bg-medium: #1b2a3a;     /* fundo de seções alternadas / cards */
+
+  /* Cor de destaque (laranja) */
+  --accent: #e8622c;
+  --accent-rgb: 232, 98, 44;  /* mesma cor em RGB, para uso em rgba() */
+  --accent-hover: #ff7a42;  /* laranja mais claro para hover */
+
+  /* Cores de texto */
+  --text-white: #ffffff;
+  --text-light: #c9d3de;    /* cinza-claro para parágrafos */
+  --text-muted: #8494a7;    /* cinza mais apagado para legendas */
+
+  /* Tipografia */
+  --font-display: 'Oswald', sans-serif;     /* títulos */
+  --font-body: 'Montserrat', sans-serif;    /* corpo */
+
+  /* Larguras e espaçamentos padrão */
+  --container-width: 1200px;
+  --section-padding: 100px;
+
+  /* Transição padrão para hovers suaves */
+  --transition: 0.3s ease;
+}
+
+/* ============================================
+   RESET CSS
+   Remove margens/paddings padrão dos navegadores
+   e normaliza o comportamento do box model.
+   ============================================ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* padding/border entram no cálculo da largura */
+}
+
+html {
+  scroll-behavior: smooth; /* rolagem suave ao clicar em links de âncora */
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased; /* fontes mais nítidas no macOS */
+  overflow-x: hidden; /* evita scroll horizontal acidental */
+}
+
+/* Imagens nunca estouram o container */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Links sem sublinhado por padrão; cor herdada */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Listas sem marcadores (usadas em menus) */
+ul {
+  list-style: none;
+}
+
+/* Botões herdam a fonte e não têm estilo nativo */
+button {
+  font-family: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ============================================
+   CLASSES UTILITÁRIAS
+   Reaproveitadas em várias seções.
+   ============================================ */
+
+/* Container central que limita a largura do conteúdo */
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 24px; /* respiro nas laterais em telas menores */
+}
+
+/* Títulos de seção (usados nas Partes 3 e 4) */
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem); /* escala fluida com a tela */
+  color: var(--text-white);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Subtítulo pequeno acima dos títulos de seção */
+.section-subtitle {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+/* ============================================
+   HEADER (Parte 1)
+   Fixo no topo e transparente por padrão,
+   para "flutuar" sobre a imagem do hero.
+   ============================================ */
+.header {
+  position: fixed;       /* acompanha a rolagem */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;          /* fica acima de todo o conteúdo */
+  padding: 24px 0;
+  background: transparent;
+  transition: background var(--transition), padding var(--transition),
+              box-shadow var(--transition);
+}
+
+/* Estado "rolado": JS adiciona esta classe quando a página desce.
+   O fundo fica sólido para o menu continuar legível. */
+.header--scrolled {
+  background: rgba(var(--bg-dark-rgb), 0.95); /* --bg-dark com leve transparência */
+  padding: 14px 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Linha interna: logo | nav | ações */
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+/* --- Logo --- */
+.logo {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-white);
+  letter-spacing: 3px;
+  display: inline-flex;   /* alinha emoji e texto na mesma linha de centro */
+  align-items: center;
+  gap: 8px;               /* pequeno espaço entre o emoji e a palavra */
+}
+
+/* Emoji de torii: tamanho proporcional à palavra */
+.logo__emoji {
+  font-size: 0.95em;      /* levemente menor que o texto, escala junto */
+  line-height: 1;         /* evita que o emoji "empurre" a altura da linha */
+}
+
+/* --- Navegação (desktop) --- */
+.nav__list {
+  display: flex;
+  gap: 36px;
+}
+
+.nav__link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-light);
+  position: relative;    /* âncora para o sublinhado animado */
+  padding-bottom: 4px;
+  transition: color var(--transition);
+}
+
+/* Sublinhado laranja que cresce no hover */
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width var(--transition);
+}
+
+.nav__link:hover {
+  color: var(--text-white);
+}
+
+.nav__link:hover::after {
+  width: 100%;
+}
+
+/* --- Ações à direita --- */
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.search-btn {
+  color: var(--text-light);
+  display: flex;         /* centraliza o SVG */
+  transition: color var(--transition);
+}
+
+.search-btn:hover {
+  color: var(--accent);
+}
+
+/* --- Hambúrguer (escondido no desktop) --- */
+.hamburger {
+  display: none;         /* só aparece no mobile via media query */
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px;
+}
+
+.hamburger__line {
+  width: 24px;
+  height: 2px;
+  background: var(--text-white);
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+/* Animação do hambúrguer -> "X" quando o menu está aberto */
+.hamburger--open .hamburger__line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger--open .hamburger__line:nth-child(2) {
+  opacity: 0;
+}
+.hamburger--open .hamburger__line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ============================================
+   HEADER — RESPONSIVO (mobile/tablet)
+   Abaixo de 768px o menu vira um painel
+   deslizante e o hambúrguer aparece.
+   ============================================ */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  /* O nav vira um painel fixo que desliza da direita */
+  .nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: min(75vw, 320px); /* nunca maior que 320px */
+    height: 100vh;   /* fallback para navegadores antigos */
+    height: 100dvh;  /* viewport dinâmico: respeita a barra de URL no mobile */
+    background: var(--bg-medium);
+    transform: translateX(100%); /* escondido fora da tela */
+    transition: transform var(--transition);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Estado aberto: JS adiciona esta classe */
+  .nav--open {
+    transform: translateX(0);
+  }
+
+  /* Links empilhados verticalmente */
+  .nav__list {
+    flex-direction: column;
+    gap: 8px;
+    padding: 100px 40px 40px;
+  }
+
+  .nav__link {
+    display: block;
+    font-size: 1.1rem;
+    padding: 10px 0;
+  }
+
+  /* Garante que o hambúrguer fique acima do painel */
+  .header__actions {
+    position: relative;
+    z-index: 110;
+  }
+}
+
+/* ============================================
+   HERO — VISITE TÓQUIO (Parte 2)
+   Ocupa a tela toda, com imagem de fundo do
+   torii + overlay escuro em gradiente para
+   garantir a leitura do texto.
+   ============================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* empurra as colunas para a base */
+
+  /* Overlay escuro por cima da foto local.
+     O gradiente escurece mais embaixo, onde ficam os textos.
+     Obs: o caminho é relativo a ESTE arquivo (css/style.css),
+     por isso o "../" antes de assets/. */
+  background:
+    linear-gradient(
+      180deg,
+      rgba(20, 29, 43, 0.55) 0%,
+      rgba(20, 29, 43, 0.45) 45%,
+      rgba(20, 29, 43, 0.92) 100%
+    ),
+    url('../assets/Imagem1.jpg')
+    center / cover no-repeat;
+}
+
+/* Área central: título à esquerda, indicador à direita */
+.hero__inner {
+  width: 100%;
+  flex: 1;                     /* ocupa o espaço acima das colunas */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding-top: 120px;          /* compensa o header fixo */
+}
+
+/* --- Título gigante --- */
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  /* clamp: mínimo 3.5rem, ideal 10vw, máximo 8.5rem */
+  font-size: clamp(3.5rem, 10vw, 8.5rem);
+  line-height: 1.05;
+  color: var(--text-white);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+.hero__tagline {
+  margin-top: 20px;
+  max-width: 420px;
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+/* --- Três colunas de destaque --- */
+.hero__features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* três colunas iguais */
+  gap: 48px;
+  padding-top: 56px;
+  padding-bottom: 40px;
+}
+
+.feature__title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-white);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+.feature__text {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 14px;
+}
+
+/* --- Link "Saiba mais →" (reutilizável) --- */
+.link-more {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color var(--transition);
+}
+
+.link-more__arrow {
+  transition: transform var(--transition);
+}
+
+/* No hover, o link clareia e a seta desliza para a direita */
+.link-more:hover {
+  color: var(--accent-hover);
+}
+
+.link-more:hover .link-more__arrow {
+  transform: translateX(5px);
+}
+
+/* --- Linha laranja de separação --- */
+.hero__divider {
+  border: none;
+  height: 3px;
+  background: var(--accent);
+  margin-bottom: 0;
+}
+
+/* ============================================
+   HERO — RESPONSIVO
+   ============================================ */
+
+/* Tablet: colunas ficam mais estreitas */
+@media (max-width: 900px) {
+  .hero__features {
+    gap: 28px;
+  }
+}
+
+/* Mobile: colunas empilham */
+@media (max-width: 768px) {
+  .hero__inner {
+    padding-top: 100px;
+  }
+
+  .hero__features {
+    grid-template-columns: 1fr; /* uma coluna: cards empilhados */
+    gap: 32px;
+    padding-top: 40px;
+  }
+}
+
+/* ============================================
+   TOURS POPULARES (Parte 3)
+   Grid de 4 cards com efeito de hover:
+   o card sobe levemente e a imagem dá zoom.
+   ============================================ */
+.tours {
+  padding: var(--section-padding) 0;
+}
+
+/* Cabeçalho da seção */
+.tours__header {
+  margin-bottom: 56px;
+}
+
+.tours__header .section-subtitle {
+  margin-bottom: 8px;
+}
+
+/* Grid: 4 colunas no desktop */
+.tours__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+/* --- Card individual --- */
+.tour-card {
+  cursor: pointer;
+  transition: transform var(--transition);
+}
+
+/* O card inteiro sobe levemente no hover */
+.tour-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Moldura da imagem: esconde o excesso do zoom */
+.tour-card__img-wrap {
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.tour-card__img {
+  width: 100%;
+  aspect-ratio: 3 / 4;       /* cards verticais, todos iguais */
+  object-fit: cover;         /* corta a foto sem distorcer */
+  transition: transform 0.5s ease; /* zoom mais lento e suave */
+}
+
+/* Zoom suave na imagem quando o mouse passa no card */
+.tour-card:hover .tour-card__img {
+  transform: scale(1.08);
+}
+
+.tour-card__title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-white);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+  transition: color var(--transition);
+}
+
+/* Título fica laranja junto com o hover do card */
+.tour-card:hover .tour-card__title {
+  color: var(--accent);
+}
+
+.tour-card__caption {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+/* ============================================
+   TOURS — RESPONSIVO
+   4 colunas -> 2 (tablet) -> 1 (mobile)
+   ============================================ */
+@media (max-width: 900px) {
+  .tours__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 520px) {
+  .tours {
+    padding: 64px 0;
+  }
+
+  .tours__grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* No mobile os cards ficam menos altos para não dominar a tela */
+  .tour-card__img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* ============================================
+   VIAJE, SINTA, INSPIRE-SE (Parte 4)
+   Foto de via láctea/montanhas coberta por um
+   gradiente roxo-azul semitransparente.
+   ============================================ */
+.inspire {
+  padding: var(--section-padding) 0;
+
+  /* Gradiente roxo-azul + foto local de céu estrelado
+     (caminho relativo ao css/, por isso o "../") */
+  background:
+    linear-gradient(
+      120deg,
+      rgba(76, 29, 118, 0.75) 0%,   /* roxo */
+      rgba(27, 42, 90, 0.75) 55%,   /* azul-arroxeado */
+      rgba(20, 29, 43, 0.85) 100%   /* azul-marinho do tema */
+    ),
+    url('../assets/Imagem2.jpg')
+    center / cover no-repeat;
+}
+
+/* Duas colunas: texto à esquerda, miniaturas à direita */
+.inspire__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+/* --- Título grande --- */
+.inspire__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  line-height: 1.1;
+  color: var(--text-white);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 12px 0 36px;
+}
+
+/* --- Botão "Assistir vídeo" --- */
+.play-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--text-white);
+}
+
+/* Círculo laranja com o triângulo de play */
+.play-btn__circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 3px; /* compensa o triângulo, que "pesa" à esquerda */
+  transition: background var(--transition), transform var(--transition),
+              box-shadow var(--transition);
+}
+
+.play-btn__label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Hover: círculo cresce e ganha um brilho laranja */
+.play-btn:hover .play-btn__circle {
+  background: var(--accent-hover);
+  transform: scale(1.1);
+  box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.5);
+}
+
+/* --- Miniaturas de vídeo --- */
+.inspire__thumbs {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.video-thumb {
+  position: relative;    /* âncora para o botão de play sobreposto */
+  width: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: transform var(--transition);
+}
+
+.video-thumb:hover {
+  transform: translateY(-6px);
+}
+
+.video-thumb__img {
+  width: 100%;
+  aspect-ratio: 16 / 9;  /* proporção de vídeo */
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.video-thumb:hover .video-thumb__img {
+  transform: scale(1.06);
+}
+
+/* Botão de play centralizado sobre a miniatura */
+.video-thumb__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(var(--accent-rgb), 0.9); /* laranja quase sólido */
+  color: var(--text-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 2px;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.video-thumb:hover .video-thumb__play {
+  background: var(--accent-hover);
+  transform: translate(-50%, -50%) scale(1.15);
+}
+
+/* Legenda na base da miniatura, sobre um gradiente escuro */
+.video-thumb__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 24px 14px 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-white);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+}
+
+/* ============================================
+   INSPIRE — RESPONSIVO
+   Colunas empilham; miniaturas viram lado a lado
+   e depois empilhadas no mobile menor.
+   ============================================ */
+@media (max-width: 900px) {
+  .inspire__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 48px;
+  }
+
+  /* Miniaturas ficam lado a lado abaixo do texto */
+  .inspire__thumbs {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .video-thumb {
+    width: 100%;    /* dividem o espaço igualmente */
+  }
+}
+
+@media (max-width: 520px) {
+  .inspire {
+    padding: 64px 0;
+  }
+
+  /* Telas bem estreitas: miniaturas empilhadas de novo */
+  .inspire__thumbs {
+    flex-direction: column;
+  }
+}
+
+/* ============================================
+   FOOTER (Parte 5)
+   Fundo levemente mais claro que o body para
+   marcar o fim da página.
+   ============================================ */
+.footer {
+  background: var(--bg-medium);
+  padding: 56px 0 28px;
+}
+
+/* Linha superior: logo | nav | redes sociais */
+.footer__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;   /* quebra em linhas quando falta espaço */
+}
+
+/* Navegação secundária horizontal */
+.footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer__link {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  transition: color var(--transition);
+}
+
+.footer__link:hover {
+  color: var(--accent);
+}
+
+/* --- Redes sociais --- */
+.footer__social {
+  display: flex;
+  gap: 12px;
+}
+
+/* Ícone dentro de um círculo com borda sutil */
+.social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition), border-color var(--transition),
+              background var(--transition), transform var(--transition);
+}
+
+/* Hover: círculo vira laranja e sobe levemente */
+.social-link:hover {
+  color: var(--text-white);
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+/* --- Linha inferior: copyright --- */
+.footer__bottom {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1); /* divisória sutil */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer__copy,
+.footer__credit {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* ============================================
+   FOOTER — RESPONSIVO
+   Tudo centralizado e empilhado no mobile.
+   ============================================ */
+@media (max-width: 768px) {
+  .footer__top {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer__nav {
+    justify-content: center;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}

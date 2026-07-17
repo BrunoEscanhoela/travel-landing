@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- ============================================
+       META BÁSICOS
+       ============================================ -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Travel, landing page de viagens. Descubra Tokyo, tours populares e inspire sua vida.">
+  <title>TOKYO — Travel</title>
+
+  <!-- Favicon: emoji de torii em SVG inline (data URI, sem arquivo externo) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛩️</text></svg>">
+
+  <!-- ============================================
+       GOOGLE FONTS
+       - Oswald: títulos display (bold, condensada)
+       - Montserrat: texto de corpo (sans-serif limpa)
+       preconnect acelera a conexão com o servidor de fontes
+       ============================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Folha de estilos principal -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============================================
+       HEADER (Parte 1)
+       Fixo no topo, transparente sobre o hero.
+       Ganha fundo sólido ao rolar a página (via JS).
+       ============================================ -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+
+      <!-- Logo: emoji de torii + "TOKYO" -->
+      <a href="#inicio" class="logo"><span class="logo__emoji">⛩️</span> TOKYO</a>
+
+      <!-- Navegação principal -->
+      <nav class="nav" id="nav">
+        <ul class="nav__list">
+          <li><a href="#inicio" class="nav__link">Início</a></li>
+          <li><a href="#sobre" class="nav__link">Sobre</a></li>
+          <li><a href="#tours" class="nav__link">Tours</a></li>
+          <li><a href="#galeria" class="nav__link">Galeria</a></li>
+          <li><a href="#avaliacoes" class="nav__link">Avaliações</a></li>
+          <li><a href="#contatos" class="nav__link">Contatos</a></li>
+        </ul>
+      </nav>
+
+      <!-- Ações à direita: busca + hambúrguer -->
+      <div class="header__actions">
+        <!-- Ícone de busca (SVG inline, sem dependências) -->
+        <button class="search-btn" aria-label="Buscar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="21" y1="21" x2="16.5" y2="16.5"></line>
+          </svg>
+        </button>
+
+        <!-- Botão hambúrguer: visível apenas no mobile -->
+        <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
+          <span class="hamburger__line"></span>
+          <span class="hamburger__line"></span>
+          <span class="hamburger__line"></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ============================================
+       HERO — VISITE TÓQUIO (Parte 2)
+       Imagem de fundo (torii) com overlay escuro,
+       título gigante e três colunas de destaque
+       com "Saiba mais".
+       ============================================ -->
+  <section class="hero" id="inicio">
+    <div class="container hero__inner">
+
+      <!-- Bloco principal: título gigante em duas linhas -->
+      <div class="hero__content">
+        <h1 class="hero__title">
+          VISITE<br>TOKYO
+        </h1>
+        <p class="hero__tagline">
+          Descubra a capital do Japão: tradição milenar e
+          futuro vibrante na mesma cidade.
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Três colunas de destaque na base do hero -->
+    <div class="container hero__features" id="sobre">
+
+      <article class="feature">
+        <h2 class="feature__title">Cultura & Tradição</h2>
+        <p class="feature__text">
+          Templos centenários, jardins zen e cerimônias do chá
+          preservadas há gerações.
+        </p>
+        <a href="#tours" class="link-more">Saiba mais <span class="link-more__arrow">&rarr;</span></a>
+      </article>
+
+      <article class="feature">
+        <h2 class="feature__title">Gastronomia</h2>
+        <p class="feature__text">
+          Do sushi de Tsukiji ao ramen de Shinjuku: a cidade com
+          mais estrelas Michelin do mundo.
+        </p>
+        <a href="#tours" class="link-more">Saiba mais <span class="link-more__arrow">&rarr;</span></a>
+      </article>
+
+      <article class="feature">
+        <h2 class="feature__title">Vida Urbana</h2>
+        <p class="feature__text">
+          Neon de Shibuya, tecnologia de Akihabara e a energia
+          única das ruas de Tokyo.
+        </p>
+        <a href="#tours" class="link-more">Saiba mais <span class="link-more__arrow">&rarr;</span></a>
+      </article>
+
+    </div>
+
+    <!-- Linha laranja de separação na base do hero -->
+    <div class="container">
+      <hr class="hero__divider">
+    </div>
+  </section>
+
+  <!-- ============================================
+       TOURS POPULARES (Parte 3)
+       Subtítulo + título e grid de 4 cards com
+       imagem, nome do tour e legenda curta.
+       ============================================ -->
+  <section class="tours" id="tours">
+    <div class="container">
+
+      <!-- Cabeçalho da seção -->
+      <header class="tours__header">
+        <p class="section-subtitle">Escolha seu destino</p>
+        <h2 class="section-title">Tours Populares</h2>
+      </header>
+
+      <!-- Grid de cards -->
+      <div class="tours__grid" id="galeria">
+
+        <!-- Card 1 -->
+        <article class="tour-card">
+          <div class="tour-card__img-wrap">
+            <img
+              src="assets/Imagem5.jpg"
+              alt="Portões torii vermelhos do santuário Fushimi Inari"
+              class="tour-card__img" loading="lazy">
+          </div>
+          <h3 class="tour-card__title">Tour Nº1</h3>
+          <p class="tour-card__caption">Fushimi Inari: mil portões torii em Kyoto</p>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="tour-card">
+          <div class="tour-card__img-wrap">
+            <img
+              src="assets/Imagem6.jpg"
+              alt="Pagode Chureito com o Monte Fuji ao fundo"
+              class="tour-card__img" loading="lazy">
+          </div>
+          <h3 class="tour-card__title">Tour Nº2</h3>
+          <p class="tour-card__caption">Monte Fuji: pagode Chureito e vistas clássicas</p>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="tour-card">
+          <div class="tour-card__img-wrap">
+            <img
+              src="assets/Imagem8.jpg"
+              alt="Rua movimentada de Tokyo ao entardecer"
+              class="tour-card__img" loading="lazy">
+          </div>
+          <h3 class="tour-card__title">Tour Nº3</h3>
+          <p class="tour-card__caption">Tokyo à noite: neon, torres e vida urbana</p>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="tour-card">
+          <div class="tour-card__img-wrap">
+            <img
+              src="assets/Imagem9.jpg"
+              alt="Rua tradicional japonesa com lanternas"
+              class="tour-card__img" loading="lazy">
+          </div>
+          <h3 class="tour-card__title">Tour Nº4</h3>
+          <p class="tour-card__caption">Kyoto histórica: ruas, templos e tradição</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       VIAJE, SINTA, INSPIRE-SE (Parte 4)
+       Fundo de montanhas/via láctea com gradiente
+       roxo-azul, título grande, botão de play e
+       duas miniaturas de vídeo.
+       (id="avaliacoes" é provisório — mova para a
+       futura seção de avaliações quando criá-la)
+       ============================================ -->
+  <section class="inspire" id="avaliacoes">
+    <div class="container inspire__inner">
+
+      <!-- Coluna esquerda: título + botão principal de play -->
+      <div class="inspire__content">
+        <p class="section-subtitle">Nossa filosofia</p>
+        <h2 class="inspire__title">
+          VIAJE,<br>SINTA,<br>INSPIRE-SE
+        </h2>
+
+        <!-- Botão "Assistir vídeo": círculo de play + texto -->
+        <button class="play-btn" aria-label="Assistir vídeo de apresentação">
+          <span class="play-btn__circle">
+            <!-- Triângulo de play em SVG -->
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </span>
+          <span class="play-btn__label">Assistir vídeo</span>
+        </button>
+      </div>
+
+      <!-- Coluna direita: duas miniaturas de vídeo -->
+      <div class="inspire__thumbs">
+
+        <article class="video-thumb">
+          <img
+            src="assets/Imagem3.jpg"
+            alt="Estrada sinuosa entre montanhas ao pôr do sol"
+            class="video-thumb__img" loading="lazy">
+          <!-- Botão de play sobreposto à miniatura -->
+          <button class="video-thumb__play" aria-label="Assistir: Estradas panorâmicas">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </button>
+          <p class="video-thumb__caption">Estradas panorâmicas</p>
+        </article>
+
+        <article class="video-thumb">
+          <img
+            src="assets/Imagem4.jpg"
+            alt="Picos rochosos entre nuvens ao entardecer"
+            class="video-thumb__img" loading="lazy">
+          <button class="video-thumb__play" aria-label="Assistir: Aventura nas montanhas">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+          </button>
+          <p class="video-thumb__caption">Aventura nas montanhas</p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER (Parte 5)
+       Logo, navegação secundária, redes sociais
+       e linha de copyright.
+       ============================================ -->
+  <footer class="footer" id="contatos">
+    <div class="container">
+
+      <div class="footer__top">
+
+        <!-- Logo repetido para reforçar a marca -->
+        <a href="#inicio" class="logo"><span class="logo__emoji">⛩️</span> TOKYO</a>
+
+        <!-- Navegação secundária (mesmas âncoras do header) -->
+        <nav aria-label="Navegação do rodapé">
+          <ul class="footer__nav">
+            <li><a href="#inicio" class="footer__link">Início</a></li>
+            <li><a href="#sobre" class="footer__link">Sobre</a></li>
+            <li><a href="#tours" class="footer__link">Tours</a></li>
+            <li><a href="#galeria" class="footer__link">Galeria</a></li>
+            <li><a href="#avaliacoes" class="footer__link">Avaliações</a></li>
+            <li><a href="#contatos" class="footer__link">Contatos</a></li>
+          </ul>
+        </nav>
+
+        <!-- Redes sociais (SVGs inline, sem bibliotecas) -->
+        <div class="footer__social">
+          <a href="#" class="social-link" aria-label="Instagram">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <rect x="2" y="2" width="20" height="20" rx="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"></circle>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="Facebook">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="YouTube">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="5" width="20" height="14" rx="4"></rect>
+              <path d="M10 9l5 3-5 3z" fill="currentColor" stroke="none"></path>
+            </svg>
+          </a>
+          <a href="#" class="social-link" aria-label="X (Twitter)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.3l7.3-8.3L1.6 2h6.5l4.4 5.9L18.9 2zm-1.1 18h1.7L7.1 3.9H5.3L17.8 20z"></path>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Linha divisória + copyright -->
+      <div class="footer__bottom">
+        <p class="footer__copy">
+          &copy; 2026 TOKYO. Todos os direitos reservados.
+        </p>
+        <p class="footer__credit">
+          Feito com HTML, CSS e JavaScript puros
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Script principal -->
+  <script src="js/script.js"></script>
+</body>
+</html>

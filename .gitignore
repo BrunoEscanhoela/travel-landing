@@ -1,0 +1,16 @@
+# ============================================
+# .gitignore — travel-landing
+# Arquivos que NUNCA devem ir para o GitHub
+# ============================================
+
+# Metadados do Finder (macOS)
+.DS_Store
+
+# Variáveis de ambiente / segredos (proteção futura)
+.env
+.env.*
+
+# Configurações locais de editores
+.vscode/
+.cursor/
+.idea/
